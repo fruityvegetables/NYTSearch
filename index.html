@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+    <title>NYT Search</title>
+   
+</head>
+<body>
+    <button id="btn1" type="button">Click Me!</button>
+    <p id="testParagraph"></p>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+</body>
+    <script>
+        
+    // use the article search api to look up articles by keyword, refine your search using filters and facets
+    // this is what gives us the info after the URL: /articlesearch.json?q={query}&fq={filter}
+    // this is an example of a full call with the URL:-
+    //- https://api.nytimes.com/svc/search/v2/articlesearch.json?q=election&api-key=yourkey
+    // below is how you will filter your search:
+    //
+    // our API key n8xLpEukj4EQb8z6k8jUxwAp3L9xE2SN
+   // Create the AJAX call needed to retrieve data then console.log all of the relevant fields.
+    // 
+    
+    $("#btn1").on("click", function() {
+        
+
+// this is the address at which you'll find the information you're looking for and you put your api key-
+//- in it. 
+var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=poop&api-key=n8xLpEukj4EQb8z6k8jUxwAp3L9xE2SN";
+console.log(queryURL);
+//these are two arguments needed for ajax to go and retrieve something for you, it needs a place to go-
+//-and a method of what its doing. getting a single image using the above url. gets one things at a time
+$.ajax({
+  url: queryURL,
+  method: "GET"
+  
+})
+
+// // this function lays out the details of how you want to handle the response from the server, or when we get the info-
+// // -back from the server, in this case about a particular giphy image, or we get a list of them
+  .then(function(response) {
+
+  //this goes into the response you got from the server and pulls specific information-
+  //-so that you don't have to comb through hella lines of an object to look at them. storing the image url into a variable
+    var articleURL = response.data;
+
+    //this looks like a place for you to take your response from the server and place it. creating new html element to store this image
+    var searchResult = $("<p>");
+
+    //this is going to be the url of the cat image you wanted from the server, and-
+    //-underneath it you will see an alt tag for accessibility
+    searchResult.attr("src", articleURL);
+
+    //this is a jquery method to take the cat image  you got from the server you reached-
+    //-and put it at the top of your area where you are placing these in your doc
+    $("#testParagraph").prepend(searchResult);
+  });
+});
+    
+    </script>
+
+</html>
