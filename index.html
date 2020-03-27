@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" /> -->
     <title>NYT Search</title>
    
 </head>
@@ -101,11 +101,7 @@
     
             <!-- Line Break followed by closing -->
             <hr>
-<<<<<<< HEAD
             <h5 class="text-center"><small>Copied by breakout room 3<i class="fa fa-heart"></i></small></h5>
-=======
-            <h5 class="text-center"><small>Made by Team Garrett<i class="fa fa-heart"></i></small></h5>
->>>>>>> 81af020f7ef3e123d19a52ce2dda098bad720b34
     
           </div>
         </div>
@@ -135,7 +131,7 @@
 
 // this is the address at which you'll find the information you're looking for and you put your api key-
 //- in it. 
-var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=poop&api-key=n8xLpEukj4EQb8z6k8jUxwAp3L9xE2SN";
+var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=" + article + "poop&api-key=n8xLpEukj4EQb8z6k8jUxwAp3L9xE2SN";
 console.log(queryURL);
 //these are two arguments needed for ajax to go and retrieve something for you, it needs a place to go-
 //-and a method of what its doing. getting a single image using the above url. gets one things at a time
@@ -153,7 +149,7 @@ $.ajax({
   .then(function(response) {
 
 
-    var articleURL = response.data;
+    var articleURL = response.text;
 
     
     var searchResult = $("<p>");
