@@ -4,10 +4,13 @@ $(document).ready(function (){
 
 
 
-        $("#generate").on("click", function (event) {
-            event.preventDefault();
+
+        $(".Btn").on("click", function (event) {
+            var article=  $("#userSearch").val();
+            var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=The_New_York_Times&api-key=n8xLpEukj4EQb8z6k8jUxwAp3L9xE2SN&q=" + article ;
+            console.log(queryURL);
             // check event.target FIRST on events like this ^^
-           console.log(event);
+           // console.log(event);
            // LUCKILY a tutor explained to me why I would have to add 
            // the replace method below...
            // to remove all whitespace! 
@@ -18,7 +21,7 @@ $(document).ready(function (){
             // //sets the local storage with time and task arguments.
             // localStorage.setItem(time, task);
     
-        $(".addSearch").prepend("<br><hr>" + event);
+        $(".Btn").prepend("<br><hr>" + event);
 
       });
 
