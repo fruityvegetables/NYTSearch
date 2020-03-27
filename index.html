@@ -13,8 +13,101 @@
    
 </head>
 <body>
-    <button id="btn1" type="button">Click Me!</button>
-    <p id="testParagraph"></p>
+
+     
+    <!-- Main Bootstrap Search -->
+    <div class="container">
+  
+        <!-- Jumbotron for Title -->
+        <div class="jumbotron" style="background-color: #20315A ; color: white;">
+          <h1 class="text-center"><strong><i class="fa fa-newspaper-o"></i> New York Times Search</strong></h1>
+        </div>
+    
+        
+        <div class="row">
+          <div class="col-sm-12">
+            <br>
+            <!-- First panel is for handling the search parameters -->
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title"><strong><i class="fa  fa-list-alt"></i>   Search Parameters</strong></h3>
+              </div>
+              <div class="panel-body">
+    
+                <!-- Here we create an HTML Form for handling the inputs-->
+                <form role="form">
+    
+                  <!-- Here we create the text box for capturing the search term-->
+                  <div class="form-group">
+                    <label for="search">Search Term:</label>
+                    <input type="text" class="form-control" id="search-term">
+                  </div>
+    
+                  <!-- Here we capture the number of records that the user wants to retrieve  -->
+                  <div class="form-group">
+                    <label for="pwd">Number of Records to Retrieve:</label>
+                    <select class="form-control" id="num-records-select">
+                                <option value="1">1</option>
+                                <option value="5" selected="">5</option>
+                                <option value="10">10</option>
+                            </select>
+                  </div>
+    
+                  
+                  <div class="form-group">
+                    <label for="start-year">Start Year (Optional):</label>
+                    <input type="text" class="form-control" id="start-year">
+                  </div>
+    
+                  
+                  <div class="form-group">
+                    <label for="end-year">End Year (Optional):</label>
+                    <input type="text" class="form-control" id="end-year">
+                  </div>
+    
+                  <!-- Here we have our final submit button -->
+                  <button type="submit" class="btn btn-default" id="run-search"><i class="fa fa-search"></i> Search</button>
+                  <button type="button" class="btn btn-default" id="clear-all"><i class="fa fa-trash"></i> Clear Results</button>
+    
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <!-- This row will handle all of the retrieved articles -->
+        <div class="row">
+          <div class="col-sm-12">
+            <br>
+    
+            <!-- This panel will initially be made up of a panel and wells for each of the articles retrieved -->
+            <div class="panel panel-primary">
+    
+              
+              <div class="panel-heading">
+                <h3 class="panel-title"><strong><i class="fa fa-table"></i>   Top Articles</strong></h3>
+              </div>
+    
+              
+              <div class="panel-body" id="well-section">
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Footer Region -->
+        <div class="row">
+          <div class="col-sm-12">
+    
+            <!-- Line Break followed by closing -->
+            <hr>
+            <h5 class="text-center"><small>Made by Team Garrett<i class="fa fa-heart"></i></small></h5>
+    
+          </div>
+        </div>
+    
+      </div>
+        
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 </body>
@@ -29,8 +122,11 @@
     // our API key n8xLpEukj4EQb8z6k8jUxwAp3L9xE2SN
    // Create the AJAX call needed to retrieve data then console.log all of the relevant fields.
     // 
+
+
     
-    $("#btn1").on("click", function() {
+    $("#run-search").on("click", function(event) {
+        event.preventDefault();
         
 
 // this is the address at which you'll find the information you're looking for and you put your api key-
@@ -39,6 +135,9 @@ var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=poop
 console.log(queryURL);
 //these are two arguments needed for ajax to go and retrieve something for you, it needs a place to go-
 //-and a method of what its doing. getting a single image using the above url. gets one things at a time
+
+//NOW INSTEAD OF POOP I NEED MY QUERYURL TO SEARCH FOR THE USER'S INPUTS
+
 $.ajax({
   url: queryURL,
   method: "GET"
@@ -46,22 +145,19 @@ $.ajax({
 })
  
 // // this function lays out the details of how you want to handle the response from the server, or when we get the info-
-// // -back from the server, in this case about a particular giphy image, or we get a list of them
+// // -back from the server
   .then(function(response) {
 
-  //this goes into the response you got from the server and pulls specific information-
-  //-so that you don't have to comb through hella lines of an object to look at them. storing the image url into a variable
+
     var articleURL = response.data;
 
-    //this looks like a place for you to take your response from the server and place it. creating new html element to store this image
+    
     var searchResult = $("<p>");
 
-    //this is going to be the url of the cat image you wanted from the server, and-
-    //-underneath it you will see an alt tag for accessibility
+    
     searchResult.attr("src", articleURL);
 
-    //this is a jquery method to take the cat image  you got from the server you reached-
-    //-and put it at the top of your area where you are placing these in your doc
+   
     $("#testParagraph").prepend(searchResult);
   });
 });
